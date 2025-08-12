@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgresql://fastify_user:fastify_password@postgres:5432/fastify_db
+      - PINO_LOG_LEVEL=info
+      - PORT=8080
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 2G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_DB: fastify_db
+      POSTGRES_USER: fastify_user
+      POSTGRES_PASSWORD: fastify_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
