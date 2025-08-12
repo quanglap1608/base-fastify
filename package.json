@@ -18,6 +18,8 @@
   "description": "",
   "dependencies": {
     "@fastify/env": "^5.0.2",
+    "@fastify/swagger": "^9.5.1",
+    "@fastify/swagger-ui": "^5.2.3",
     "@types/pg": "^8.15.5",
     "dotenv": "^17.2.1",
     "drizzle-kit": "^0.31.4",

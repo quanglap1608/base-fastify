@@ -4,6 +4,8 @@ import { createLogger } from "src/utils/logger";
 import dotenv from "dotenv";
 import { Level } from "pino";
 import { postsRouter } from "src/routes/posts";
+import swagger from "@fastify/swagger";
+import swaggerUi from "@fastify/swagger-ui";
 
 const schema = {
   type: "object",
@@ -57,10 +59,18 @@ export const createServer = async () => {
   /* Register plugins */
   await fastify.register(env, options).after();
 
+   /* Register Swagger */
+  await fastify.register(swagger);
+  await fastify.register(swaggerUi, {
+    routePrefix: "/docs",
+  });
+
+  /* Health check */
   fastify.get("/", (request, reply) => {
     reply.send({ message: "Health check passed" });
   });
 
+  /* Register routes */
   fastify.register(postsRouter, { prefix: "api/posts" });
 
   return fastify;
