@@ -10,7 +10,10 @@
     "start": "node ./dist/main.js",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "format": "biome format --write ./src",
+    "lint": "biome lint ./src",
+    "lint:fix": "biome lint --apply ./src"
   },
   "keywords": [],
   "author": "",

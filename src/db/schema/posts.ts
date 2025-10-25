@@ -1,3 +1,4 @@
+import { InferInsertModel } from "drizzle-orm";
 import { pgTable, uuid, varchar, text } from "drizzle-orm/pg-core";
 import { timestamps } from "./_common";
 
@@ -7,3 +8,5 @@ export const posts = pgTable("posts", {
   content: text("text").notNull(),
   ...timestamps,
 });
+
+export type NewPost = InferInsertModel<typeof posts>;
