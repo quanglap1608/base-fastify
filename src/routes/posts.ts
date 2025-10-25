@@ -2,29 +2,20 @@ import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { NewPost } from "src/db/schema";
 import { PostService } from "src/services";
 
-const getPostsHandler = async (
-  request: FastifyRequest<{ Querystring: { limit?: number } }>,
-  reply: FastifyReply,
-) => {
+const getPostsHandler = async (request: FastifyRequest<{ Querystring: { limit?: number } }>, reply: FastifyReply) => {
   const limit = request.query?.limit;
   const data = await PostService.getPosts(limit);
 
   return { data };
 };
 
-const getPostByIdHandler = async (
-  request: FastifyRequest<{ Params: { id: string } }>,
-  reply: FastifyReply,
-) => {
+const getPostByIdHandler = async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
   const { id } = request.params;
   const data = await PostService.getPostById(id);
   return { data };
 };
 
-const createPostHandler = async (
-  request: FastifyRequest<{ Body: NewPost }>,
-  reply: FastifyReply,
-) => {
+const createPostHandler = async (request: FastifyRequest<{ Body: NewPost }>, reply: FastifyReply) => {
   const post = request.body;
   const data = await PostService.createPost(post);
   return reply.code(201).send({ data });

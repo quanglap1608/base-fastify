@@ -59,7 +59,7 @@ export const createServer = async () => {
   /* Register plugins */
   await fastify.register(env, options).after();
 
-   /* Register Swagger */
+  /* Register Swagger */
   await fastify.register(swagger);
   await fastify.register(swaggerUi, {
     routePrefix: "/docs",
